@@ -40,7 +40,7 @@
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard](https://via.placeholder.com/800x400/1e293b/86efac?text=Dashboard+InventoryPro)
+![Dashboard](https://raw.githubusercontent.com/rizalmhmd/BOTWA/master/uploads/1763876684803.jpeg)
 
 ### Manajemen Produk
 ![Products](https://via.placeholder.com/800x400/1e293b/86efac?text=Manajemen+Produk)
