@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Laporan Stok - InventoryPro')
+@section('title', 'Laporan Stok - Inventory System')
 @section('page-title', 'Laporan Stok')
 @section('title-icon', 'fa-chart-line')
 
@@ -12,22 +12,18 @@
 
     /* Header Card */
     .header-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
-        border-radius: 1.5rem;
-        padding: 2.5rem;
-        border: 1px solid var(--glass-border);
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid var(--card-border);
+        margin-bottom: 1.5rem;
     }
 
     .header-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--light), var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         margin-bottom: 0.5rem;
         display: flex;
         align-items: center;
@@ -35,19 +31,18 @@
     }
 
     .header-subtitle {
-        color: var(--gray);
-        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-size: 1rem;
     }
 
     /* Filter Card */
     .filter-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
-        border-radius: 1.5rem;
-        padding: 2rem;
-        border: 1px solid var(--glass-border);
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        border: 1px solid var(--card-border);
+        margin-bottom: 1.5rem;
     }
 
     /* Form Elements */
@@ -72,26 +67,53 @@
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 600;
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 0.9rem;
     }
 
     .form-input, .form-select {
         width: 100%;
         padding: 0.75rem 1rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 0.9rem;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
     }
 
+    /* PERBAIKAN: Styling khusus untuk select dropdown */
+    .form-select {
+        background: rgba(255, 255, 255, 0.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 1rem center;
+        background-size: 16px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: 3rem;
+    }
+
+    /* PERBAIKAN: Styling untuk options */
+    .form-select option {
+        background: #1f2937;
+        color: #f3f4f6;
+        padding: 0.75rem;
+        border: none;
+    }
+
+    .form-select option:checked {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .form-select option:hover {
+        background: #4b5563;
+    }
+
     .form-input:focus, .form-select:focus {
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
     }
 
     /* Buttons */
@@ -108,23 +130,24 @@
         gap: 0.5rem;
         font-size: 0.9rem;
         font-family: inherit;
+        backdrop-filter: blur(10px);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
         color: white;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
     }
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
     }
 
     .btn-secondary {
-        background: var(--glass);
-        color: var(--light);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
     }
 
     .btn-secondary:hover {
@@ -159,8 +182,8 @@
         background: rgba(255, 255, 255, 0.04);
         border-radius: 1rem;
         overflow: hidden;
-        border: 1px solid var(--glass-border);
-        margin-bottom: 2rem;
+        border: 1px solid var(--card-border);
+        margin-bottom: 1.5rem;
     }
 
     .table {
@@ -173,18 +196,18 @@
         background: rgba(255, 255, 255, 0.06);
         padding: 1.25rem 1.5rem;
         text-align: left;
-        color: var(--gray);
+        color: var(--text-secondary);
         font-weight: 600;
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-bottom: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--card-border);
     }
 
     .table td {
         padding: 1.25rem 1.5rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     .table tbody tr:last-child td {
@@ -208,20 +231,20 @@
     }
 
     .status-in {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
-        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     .status-out {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
         border-color: rgba(239, 68, 68, 0.3);
     }
 
     .status-adjust {
         background: rgba(245, 158, 11, 0.15);
-        color: #fcd34d;
+        color: #f59e0b;
         border-color: rgba(245, 158, 11, 0.3);
     }
 
@@ -236,8 +259,8 @@
         padding: 0.4rem 0.75rem;
         border-radius: 0.5rem;
         border: none;
-        background: var(--glass);
-        color: var(--light);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
         cursor: pointer;
         transition: all 0.3s ease;
         display: inline-flex;
@@ -245,6 +268,7 @@
         gap: 0.3rem;
         font-size: 0.75rem;
         text-decoration: none;
+        backdrop-filter: blur(10px);
     }
 
     .action-btn:hover {
@@ -266,7 +290,7 @@
     .product-icon {
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         border-radius: 0.5rem;
         display: flex;
         align-items: center;
@@ -282,25 +306,25 @@
     /* Empty State */
     .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
-        color: var(--gray);
+        padding: 3rem 2rem;
+        color: var(--text-secondary);
     }
 
     .empty-state i {
-        font-size: 4rem;
-        margin-bottom: 1.5rem;
+        font-size: 3rem;
+        margin-bottom: 1rem;
         opacity: 0.5;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
     .empty-state h3 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     /* Table Footer */
@@ -309,13 +333,13 @@
         justify-content: space-between;
         align-items: center;
         padding: 1.5rem;
-        border-top: 1px solid var(--glass-border);
+        border-top: 1px solid var(--card-border);
         flex-wrap: wrap;
         gap: 1rem;
     }
 
     .pagination-info {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.9rem;
     }
 
@@ -326,16 +350,17 @@
 
     .pagination-btn {
         padding: 0.5rem 0.75rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
         border-radius: 0.5rem;
-        color: var(--light);
+        color: var(--text-primary);
         text-decoration: none;
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
         gap: 0.3rem;
         font-size: 0.8rem;
+        backdrop-filter: blur(10px);
     }
 
     .pagination-btn:hover {
@@ -343,9 +368,9 @@
     }
 
     .pagination-btn.active {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
         color: white;
-        border-color: var(--primary);
+        border-color: var(--primary-blue);
     }
 
     /* Stock Status */
@@ -358,17 +383,34 @@
 
     .stock-low {
         background: rgba(245, 158, 11, 0.15);
-        color: #fcd34d;
+        color: #f59e0b;
     }
 
     .stock-out {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
     }
 
     .stock-good {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+    }
+
+    /* PERBAIKAN: CSS Variables fallback */
+    :root {
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --primary-blue: #3b82f6;
+        --primary-dark: #1d4ed8;
+        --accent-purple: #8b5cf6;
+    }
+
+    /* PERBAIKAN: Background body untuk kontras */
+    body {
+        background: #111827;
+        color: #f3f4f6;
     }
 
     /* Print Styles */
@@ -404,13 +446,14 @@
         opacity: 0;
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
         .header-card {
             padding: 1.5rem;
         }
         
         .filter-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
         }
         
         .table-container {
@@ -441,13 +484,52 @@
             width: 100%;
         }
     }
+
+    @media (max-width: 480px) {
+        .header-card {
+            padding: 1.25rem;
+        }
+        
+        .filter-card {
+            padding: 1rem;
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+            gap: 0.75rem;
+        }
+        
+        .header-subtitle {
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Touch improvements for mobile */
+    @media (hover: none) {
+        .btn:hover,
+        .action-btn:hover,
+        .pagination-btn:hover {
+            transform: none;
+        }
+        
+        .btn:active,
+        .action-btn:active,
+        .pagination-btn:active {
+            transform: scale(0.98);
+        }
+    }
 </style>
 
 <div class="reports-content">
     <!-- Header Section -->
     <div class="header-card animate-fade-in">
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            <div class="flex-1">
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem;">
+            <div style="flex: 1;">
                 <h1 class="header-title">
                     <i class="fas fa-chart-line"></i>
                     Laporan Transaksi Stok
@@ -482,7 +564,8 @@
                            id="from" 
                            name="from" 
                            class="form-input" 
-                           value="{{ request('from') }}">
+                           value="{{ request('from') }}"
+                           style="color: #f3f4f6;">
                 </div>
 
                 <div class="form-group">
@@ -494,7 +577,8 @@
                            id="to" 
                            name="to" 
                            class="form-input" 
-                           value="{{ request('to') }}">
+                           value="{{ request('to') }}"
+                           style="color: #f3f4f6;">
                 </div>
 
                 <div class="form-group">
@@ -502,10 +586,10 @@
                         <i class="fas fa-box"></i>
                         Produk
                     </label>
-                    <select id="product_id" name="product_id" class="form-select">
-                        <option value="">Semua Produk</option>
+                    <select id="product_id" name="product_id" class="form-select" style="color: #f3f4f6;">
+                        <option value="" style="color: #9ca3af;">Semua Produk</option>
                         @foreach($products as $p)
-                            <option value="{{ $p->id }}" {{ request('product_id') == $p->id ? 'selected' : '' }}>
+                            <option value="{{ $p->id }}" {{ request('product_id') == $p->id ? 'selected' : '' }} style="color: #f3f4f6; background: #1f2937;">
                                 {{ $p->name }}
                             </option>
                         @endforeach
@@ -546,13 +630,13 @@
                             {{ $transaction->created_at->format('d M Y H:i') }}
                         </td>
                         <td>
-                            <div class="flex items-center gap-3">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 <div class="product-icon">
                                     <i class="fas fa-box"></i>
                                 </div>
                                 <div>
-                                    <div style="font-weight: 600; color: var(--light);">{{ $transaction->product->name }}</div>
-                                    <div style="color: var(--gray); font-size: 0.75rem;">
+                                    <div style="font-weight: 600; color: var(--text-primary);">{{ $transaction->product->name }}</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.75rem;">
                                         {{ $transaction->product->sku ?? '-' }}
                                     </div>
                                 </div>
@@ -576,7 +660,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td style="font-weight: 700; {{ $transaction->type === 'in' ? 'color: #86efac;' : 'color: #fca5a5;' }}">
+                        <td style="font-weight: 700; {{ $transaction->type === 'in' ? 'color: #10b981;' : 'color: #ef4444;' }}">
                             {{ $transaction->type === 'in' ? '+' : '-' }}{{ $transaction->quantity }}
                         </td>
                         <td style="font-weight: 600;">
@@ -589,10 +673,10 @@
                             </span>
                         </td>
                         <td>
-                            <div style="color: var(--light); font-weight: 600;">{{ $transaction->user->name }}</div>
-                            <div style="color: var(--gray); font-size: 0.75rem;">{{ $transaction->user->role }}</div>
+                            <div style="color: var(--text-primary); font-weight: 600;">{{ $transaction->user->name }}</div>
+                            <div style="color: var(--text-secondary); font-size: 0.75rem;">{{ $transaction->user->role }}</div>
                         </td>
-                        <td style="color: var(--gray); font-size: 0.85rem;">
+                        <td style="color: var(--text-secondary); font-size: 0.85rem;">
                             {{ $transaction->notes ?? '-' }}
                         </td>
                         <td class="no-print">
@@ -630,7 +714,7 @@
         <!-- Table Footer -->
         <div class="table-footer no-print">
             <div class="pagination-info">
-                Menampilkan <span style="font-weight: 600; color: var(--light);">{{ $transactions->count() }}</span> dari <span style="font-weight: 600; color: var(--light);">{{ $transactions->total() }}</span> transaksi
+                Menampilkan <span style="font-weight: 600; color: var(--text-primary);">{{ $transactions->count() }}</span> dari <span style="font-weight: 600; color: var(--text-primary);">{{ $transactions->total() }}</span> transaksi
             </div>
             <div class="pagination-buttons">
                 @if($transactions->onFirstPage())
@@ -687,6 +771,21 @@
         if (!toInput.value) {
             toInput.value = new Date().toISOString().split('T')[0];
         }
+
+        // PERBAIKAN: Force styling untuk select dropdown
+        function styleSelectDropdown() {
+            const select = document.getElementById('product_id');
+            if (select) {
+                select.style.color = '#f3f4f6';
+                select.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+            }
+        }
+
+        // Inisialisasi styling
+        styleSelectDropdown();
+        
+        // Jalankan lagi setelah 100ms untuk memastikan
+        setTimeout(styleSelectDropdown, 100);
 
         // Add animation to table rows
         const tableRows = document.querySelectorAll('tbody tr');
@@ -850,7 +949,7 @@
                     </div>
                     
                     <div class="company-name">
-                        InventoryPro System - ${new Date().getFullYear()}
+                        Inventory System - ${new Date().getFullYear()}
                     </div>
                 </div>
                 
@@ -872,8 +971,6 @@
                                 colorLight: '#ffffff',
                                 correctLevel: QRCode.CorrectLevel.M
                             });
-                            
-                            console.log('QR Code generated with data:', '${qrData}');
                         }
                         
                         // Auto print setelah QR code selesai digenerate

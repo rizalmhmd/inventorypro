@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', $product->name . ' - InventoryPro')
+@section('title', $product->name . ' - Inventory System')
 @section('page-title', 'Detail Produk')
 @section('title-icon', 'fa-box')
 
@@ -12,12 +12,11 @@
 
     /* Main Card */
     .detail-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
-        border-radius: 1.5rem;
-        padding: 2.5rem;
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid var(--card-border);
         margin-bottom: 2rem;
     }
 
@@ -41,18 +40,15 @@
     }
 
     .product-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--light), var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         margin-bottom: 0.5rem;
     }
 
     .product-sku {
-        color: var(--gray);
-        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-size: 1rem;
         margin-bottom: 1rem;
     }
 
@@ -60,11 +56,11 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: rgba(139, 92, 246, 0.1);
-        color: #a78bfa;
+        background: rgba(0, 102, 255, 0.1);
+        color: var(--primary-blue);
         padding: 0.5rem 1rem;
         border-radius: 1rem;
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        border: 1px solid rgba(0, 102, 255, 0.3);
         font-size: 0.9rem;
     }
 
@@ -73,7 +69,7 @@
         background: rgba(255, 255, 255, 0.05);
         border-radius: 1rem;
         padding: 1.5rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         text-align: center;
         min-width: 200px;
     }
@@ -82,7 +78,7 @@
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     .qr-code-container {
@@ -115,12 +111,12 @@
         background: rgba(255, 255, 255, 0.04);
         padding: 1.5rem;
         border-radius: 1rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         text-align: center;
     }
 
     .stat-label {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
     }
@@ -128,14 +124,12 @@
     .stat-value {
         font-size: 1.5rem;
         font-weight: 700;
-        color: var(--light);
+        color: var(--text-primary);
+        font-family: 'JetBrains Mono', 'Inter', monospace;
     }
 
     .stat-value.price {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--primary-blue);
     }
 
     /* Status Badge */
@@ -151,20 +145,20 @@
     }
 
     .status-available {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
-        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     .status-low {
         background: rgba(245, 158, 11, 0.15);
-        color: #fcd34d;
+        color: #f59e0b;
         border-color: rgba(245, 158, 11, 0.3);
     }
 
     .status-out {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
         border-color: rgba(239, 68, 68, 0.3);
     }
 
@@ -173,7 +167,7 @@
         background: rgba(255, 255, 255, 0.04);
         border-radius: 1rem;
         padding: 1.5rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         margin-bottom: 2rem;
     }
 
@@ -181,14 +175,14 @@
         font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: var(--light);
+        color: var(--text-primary);
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
 
     .description-content {
-        color: var(--gray);
+        color: var(--text-secondary);
         line-height: 1.6;
     }
 
@@ -212,23 +206,24 @@
         gap: 0.5rem;
         font-size: 0.9rem;
         font-family: inherit;
+        backdrop-filter: blur(10px);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
         color: white;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
     }
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
     }
 
     .btn-secondary {
-        background: var(--glass);
-        color: var(--light);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
     }
 
     .btn-secondary:hover {
@@ -331,7 +326,7 @@
         }
         
         .product-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
         }
         
         .stats-grid {
@@ -345,6 +340,44 @@
         .btn {
             width: 100%;
             justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .detail-card {
+            padding: 1.25rem;
+        }
+        
+        .product-title {
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            padding: 1.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.3rem;
+        }
+        
+        .qr-section {
+            min-width: auto;
+            width: 100%;
+        }
+    }
+
+    /* Touch improvements for mobile */
+    @media (hover: none) {
+        .btn:hover {
+            transform: none;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
         }
     }
 
@@ -389,7 +422,7 @@
                         <i class="fas fa-spinner fa-spin"></i> Generating QR Code...
                     </div>
                 </div>
-                <button onclick="downloadQRCode()" class="btn btn-success btn-sm">
+                <button onclick="downloadQRCode()" class="btn btn-success" style="padding: 0.75rem 1rem; font-size: 0.85rem;">
                     <i class="fas fa-download"></i>
                     Download QR
                 </button>
@@ -623,7 +656,7 @@
                             <div class="product-sku-label">SKU: {{ $product->sku ?? 'N/A' }}</div>
                             <div class="product-price-label">Rp {{ number_format($product->price, 0, ',', '.') }}</div>
                             <div style="font-size: 9px; margin-top: 1mm;">Stok: {{ $product->stock }} pcs</div>
-                            <div class="company-name">InventoryPro System</div>
+                            <div class="company-name">Inventory System</div>
                         </div>
                         <div class="label-qr" id="printQrCode"></div>
                     </div>
@@ -686,7 +719,7 @@ ID: #{{ $product->id }}
 Dibuat: {{ $product->created_at->format('d M Y H:i') }}
 Diupdate: {{ $product->updated_at->format('d M Y H:i') }}
 
--- InventoryPro --
+-- Inventory System --
         `;
         
         const blob = new Blob([productInfo], { type: 'text/plain' });

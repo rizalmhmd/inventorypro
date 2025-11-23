@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Stok Keluar - InventoryPro')
+@section('title', 'Stok Keluar - Inventory System')
 @section('page-title', 'Stok Keluar')
 @section('title-icon', 'fa-arrow-up')
 
@@ -12,12 +12,11 @@
 
     /* Form Card */
     .form-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
-        border-radius: 1.5rem;
-        padding: 2.5rem;
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid var(--card-border);
         max-width: 800px;
         margin: 0 auto;
     }
@@ -25,16 +24,13 @@
     /* Form Header */
     .form-header {
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
     }
 
     .form-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--light), var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         margin-bottom: 0.5rem;
         display: flex;
         align-items: center;
@@ -43,8 +39,8 @@
     }
 
     .form-subtitle {
-        color: var(--gray);
-        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-size: 1rem;
     }
 
     /* Form Elements */
@@ -73,41 +69,67 @@
         display: block;
         margin-bottom: 0.75rem;
         font-weight: 600;
-        color: var(--light);
-        font-size: 0.95rem;
+        color: var(--text-primary);
+        font-size: 0.9rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
 
     .form-label .required {
-        color: #f87171;
+        color: #ef4444;
         font-size: 0.8rem;
     }
 
     .form-input, .form-select, .form-textarea {
         width: 100%;
-        padding: 1rem 1.2rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
-        border-radius: 1rem;
-        color: var(--light);
-        font-size: 0.95rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
+        border-radius: 0.75rem;
+        color: var(--text-primary);
+        font-size: 0.9rem;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
-        font-family: 'Instrument Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* PERBAIKAN: Styling khusus untuk select dropdown */
+    .form-select {
+        background: rgba(255, 255, 255, 0.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 1rem center;
+        background-size: 16px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: 3rem;
+    }
+
+    /* PERBAIKAN: Styling untuk options */
+    .form-select option {
+        background: #1f2937;
+        color: #f3f4f6;
+        padding: 0.75rem;
+        border: none;
+    }
+
+    .form-select option:checked {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .form-select option:hover {
+        background: #4b5563;
     }
 
     .form-input:focus, .form-select:focus, .form-textarea:focus {
         outline: none;
-        border-color: var(--primary);
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
-        transform: translateY(-2px);
+        border-color: var(--primary-blue);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
     }
 
     .form-input::placeholder, .form-textarea::placeholder {
-        color: var(--gray);
+        color: var(--text-secondary);
     }
 
     .form-textarea {
@@ -117,16 +139,16 @@
 
     /* Error Messages */
     .error-message {
-        color: #fca5a5;
-        font-size: 0.85rem;
+        color: #ef4444;
+        font-size: 0.8rem;
         margin-top: 0.5rem;
         display: block;
         line-height: 1.4;
     }
 
     .input-error {
-        border-color: #f87171 !important;
-        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15) !important;
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
     }
 
     /* Form Actions */
@@ -136,7 +158,7 @@
         justify-content: flex-end;
         margin-top: 2rem;
         padding-top: 2rem;
-        border-top: 1px solid var(--glass-border);
+        border-top: 1px solid var(--card-border);
         flex-wrap: wrap;
     }
 
@@ -148,8 +170,8 @@
 
     /* Buttons */
     .btn {
-        padding: 1rem 2rem;
-        border-radius: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -159,9 +181,10 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-family: inherit;
         min-width: 120px;
+        backdrop-filter: blur(10px);
     }
 
     .btn-primary {
@@ -176,9 +199,9 @@
     }
 
     .btn-secondary {
-        background: var(--glass);
-        color: var(--light);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
     }
 
     .btn-secondary:hover {
@@ -188,8 +211,8 @@
 
     /* Helper Text */
     .helper-text {
-        color: var(--gray);
-        font-size: 0.8rem;
+        color: var(--text-secondary);
+        font-size: 0.75rem;
         margin-top: 0.5rem;
         line-height: 1.4;
     }
@@ -197,24 +220,24 @@
     .helper-text.warning {
         background: rgba(245, 158, 11, 0.1);
         border: 1px solid rgba(245, 158, 11, 0.3);
-        color: #fcd34d;
-        padding: 0.75rem 1rem;
+        color: #f59e0b;
+        padding: 0.75rem;
         border-radius: 0.75rem;
         margin-top: 1rem;
     }
 
     /* Success Alert */
     .alert-success {
-        background: rgba(34, 197, 94, 0.1);
-        border: 1px solid rgba(34, 197, 94, 0.3);
-        color: #86efac;
-        padding: 1.5rem;
-        border-radius: 1rem;
-        margin-bottom: 2rem;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #10b981;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
         backdrop-filter: blur(10px);
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 0.75rem;
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
@@ -224,7 +247,7 @@
     .stock-warning {
         background: rgba(239, 68, 68, 0.1);
         border: 1px solid rgba(239, 68, 68, 0.3);
-        color: #fca5a5;
+        color: #ef4444;
         padding: 1rem;
         border-radius: 0.75rem;
         margin-top: 0.5rem;
@@ -259,6 +282,66 @@
     .form-group:nth-child(3) { animation-delay: 0.3s; }
     .form-group:nth-child(4) { animation-delay: 0.4s; }
     .form-actions { animation-delay: 0.5s; }
+
+    /* PERBAIKAN: CSS Variables fallback */
+    :root {
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --primary-blue: #3b82f6;
+    }
+
+    /* PERBAIKAN: Background body untuk kontras */
+    body {
+        background: #111827;
+        color: #f3f4f6;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .form-card {
+            padding: 1.5rem;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            gap: 0.75rem;
+        }
+        
+        .form-subtitle {
+            font-size: 0.9rem;
+        }
+        
+        .form-grid {
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            padding: 0.875rem;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.25rem;
+            min-width: auto;
+            width: 100%;
+        }
+    }
+
+    /* Touch improvements for mobile */
+    @media (hover: none) {
+        .btn:hover {
+            transform: none;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+    }
 </style>
 
 <div class="stock-out-content">
@@ -293,19 +376,20 @@
                         Pilih Produk
                         <span class="required">*</span>
                     </label>
-                    <select id="product_id" name="product_id" class="form-select @error('product_id') input-error @enderror" required>
-                        <option value="">-- Pilih Produk --</option>
+                    <select id="product_id" name="product_id" class="form-select @error('product_id') input-error @enderror" required style="color: #f3f4f6;">
+                        <option value="" style="color: #9ca3af;">-- Pilih Produk --</option>
                         @foreach($products as $p)
                             <option value="{{ $p->id }}" 
                                     data-stock="{{ $p->stock }}"
-                                    {{ old('product_id') == $p->id ? 'selected' : '' }}>
+                                    {{ old('product_id') == $p->id ? 'selected' : '' }}
+                                    style="color: #f3f4f6; background: #1f2937;">
                                 {{ $p->name }} ({{ $p->sku ?? 'No SKU' }}) - Stok: {{ $p->stock }} pcs
                             </option>
                         @endforeach
                     </select>
                     @error('product_id')
                         <span class="error-message">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <i class="fas fa-exclamation-circle" style="margin-right: 0.25rem;"></i>
                             {{ $message }}
                         </span>
                     @enderror
@@ -332,10 +416,11 @@
                            value="{{ old('quantity', 1) }}"
                            min="1"
                            placeholder="1"
-                           required>
+                           required
+                           style="color: #f3f4f6;">
                     @error('quantity')
                         <span class="error-message">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <i class="fas fa-exclamation-circle" style="margin-right: 0.25rem;"></i>
                             {{ $message }}
                         </span>
                     @enderror
@@ -355,10 +440,11 @@
                            name="reference" 
                            class="form-input @error('reference') input-error @enderror" 
                            value="{{ old('reference') }}"
-                           placeholder="Masukkan nomor referensi">
+                           placeholder="Masukkan nomor referensi"
+                           style="color: #f3f4f6;">
                     @error('reference')
                         <span class="error-message">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <i class="fas fa-exclamation-circle" style="margin-right: 0.25rem;"></i>
                             {{ $message }}
                         </span>
                     @enderror
@@ -378,10 +464,11 @@
                         name="notes" 
                         class="form-textarea @error('notes') input-error @enderror" 
                         placeholder="Masukkan keterangan tambahan"
-                        rows="3">{{ old('notes') }}</textarea>
+                        rows="3"
+                        style="color: #f3f4f6;">{{ old('notes') }}</textarea>
                     @error('notes')
                         <span class="error-message">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <i class="fas fa-exclamation-circle" style="margin-right: 0.25rem;"></i>
                             {{ $message }}
                         </span>
                     @enderror
@@ -422,6 +509,15 @@
         const stockWarning = document.getElementById('stockWarning');
         const warningText = document.getElementById('warningText');
 
+        // PERBAIKAN: Force styling untuk select dropdown
+        function styleSelectDropdown() {
+            const select = document.getElementById('product_id');
+            if (select) {
+                select.style.color = '#f3f4f6';
+                select.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+            }
+        }
+
         // Stock validation
         function validateStock() {
             const selectedOption = productSelect.options[productSelect.selectedIndex];
@@ -434,30 +530,40 @@
                     warningText.textContent = `Stok tidak mencukupi! Stok tersedia: ${currentStock} pcs, permintaan: ${quantity} pcs`;
                     submitBtn.disabled = true;
                     submitBtn.style.opacity = '0.6';
+                    submitBtn.style.cursor = 'not-allowed';
                 } else if (quantity === currentStock) {
                     stockWarning.style.display = 'block';
                     warningText.textContent = `Perhatian! Stok akan habis setelah transaksi ini`;
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
                 } else if (currentStock - quantity <= 5) {
                     stockWarning.style.display = 'block';
                     warningText.textContent = `Stok akan menipis! Sisa stok: ${currentStock - quantity} pcs`;
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
                 } else {
                     stockWarning.style.display = 'none';
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
                 }
             } else {
                 stockWarning.style.display = 'none';
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
             }
         }
 
         // Event listeners for stock validation
-        productSelect?.addEventListener('change', validateStock);
+        productSelect?.addEventListener('change', function() {
+            validateStock();
+            // Update styling saat select berubah
+            styleSelectDropdown();
+        });
+        
         quantityInput?.addEventListener('input', validateStock);
 
         // Add loading state to form submission
@@ -483,6 +589,7 @@
                 if (submitBtn.disabled) {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
+                    validateStock(); // Re-validate setelah timeout
                 }
             }, 5000);
         });
@@ -505,8 +612,15 @@
             });
         });
 
-        // Initial validation
+        // PERBAIKAN: Inisialisasi styling dan validation
+        styleSelectDropdown();
         validateStock();
+        
+        // Jalankan lagi setelah 100ms untuk memastikan
+        setTimeout(() => {
+            styleSelectDropdown();
+            validateStock();
+        }, 100);
     });
 </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Dashboard - InventoryPro')
+@section('title', 'Dashboard - Inventory System')
 @section('page-title', 'Dashboard')
 @section('title-icon', 'fa-tachometer-alt')
 
@@ -10,7 +10,7 @@
         animation: fadeInUp 0.6s ease-out;
     }
 
-    /* Stats Grid */
+    /* Stats Grid - Updated for consistency */
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -19,14 +19,15 @@
     }
 
     .stat-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-        padding: 1.75rem;
+        background: var(--card-bg);
+        padding: 1.5rem;
         border-radius: 1rem;
         backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
+        text-align: center;
     }
 
     .stat-card::before {
@@ -36,19 +37,19 @@
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
     }
 
     .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     .stat-icon {
-        font-size: 2.25rem;
+        font-size: 1.75rem;
         margin-bottom: 1rem;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -56,20 +57,26 @@
     }
 
     .stat-value {
-        font-size: 2.25rem;
+        font-size: 1.75rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, var(--light), var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         line-height: 1;
+        font-family: 'JetBrains Mono', 'Inter', monospace;
+        letter-spacing: -0.5px;
+    }
+
+    /* Khusus untuk nilai currency yang panjang */
+    .stat-value.currency {
+        font-size: 1.5rem;
+        word-break: break-all;
     }
 
     .stat-label {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
         font-weight: 500;
+        line-height: 1.3;
     }
 
     /* Main Content Layout - IMPROVED RESPONSIVE */
@@ -93,11 +100,11 @@
     }
 
     .content-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         border-radius: 1rem;
         padding: 1.75rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         transition: all 0.3s ease;
     }
 
@@ -109,19 +116,16 @@
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 1.25rem;
-        color: var(--light);
+        color: var(--text-primary);
         display: flex;
         align-items: center;
         gap: 0.5rem;
         padding-bottom: 0.75rem;
-        border-bottom: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--card-border);
     }
 
     .section-title i {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--accent-cyan);
         font-size: 1.1rem;
     }
 
@@ -142,9 +146,9 @@
     .action-btn {
         padding: 1.5rem 1rem;
         background: rgba(255, 255, 255, 0.06);
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
         text-decoration: none;
         text-align: center;
         transition: all 0.3s ease;
@@ -158,15 +162,15 @@
     }
 
     .action-btn:hover {
-        background: rgba(139, 92, 246, 0.15);
-        border-color: rgba(139, 92, 246, 0.4);
+        background: rgba(0, 102, 255, 0.15);
+        border-color: rgba(0, 102, 255, 0.4);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(139, 92, 246, 0.2);
+        box-shadow: 0 6px 20px rgba(0, 102, 255, 0.2);
     }
 
     .action-icon {
         font-size: 1.75rem;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -189,7 +193,7 @@
         background: rgba(255, 255, 255, 0.04);
         border-radius: 0.75rem;
         overflow: hidden;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         overflow-x: auto;
     }
 
@@ -204,18 +208,18 @@
         background: rgba(255, 255, 255, 0.06);
         padding: 1rem 1.25rem;
         text-align: left;
-        color: var(--gray);
+        color: var(--text-secondary);
         font-weight: 600;
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-bottom: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--card-border);
     }
 
     .table td {
         padding: 1rem 1.25rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     .table tbody tr:last-child td {
@@ -238,20 +242,20 @@
     }
 
     .status-in-stock {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
-        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     .status-low-stock {
         background: rgba(245, 158, 11, 0.15);
-        color: #fcd34d;
+        color: #f59e0b;
         border-color: rgba(245, 158, 11, 0.3);
     }
 
     .status-out-of-stock {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
         border-color: rgba(239, 68, 68, 0.3);
     }
 
@@ -273,7 +277,7 @@
         background: rgba(255, 255, 255, 0.04);
         padding: 1.25rem;
         border-radius: 0.75rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         text-align: center;
         transition: all 0.3s ease;
         flex: 1;
@@ -285,18 +289,16 @@
     }
 
     .summary-value {
-        font-size: 2rem;
+        font-size: 1.75rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--light), var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         line-height: 1;
         margin-bottom: 0.5rem;
+        font-family: 'JetBrains Mono', 'Inter', monospace;
     }
 
     .summary-label {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.85rem;
         font-weight: 500;
         line-height: 1.3;
@@ -352,6 +354,7 @@
         display: block;
         margin-bottom: 0.25rem;
         font-size: 0.9rem;
+        color: var(--text-primary);
     }
 
     .alert-content p {
@@ -359,27 +362,28 @@
         font-size: 0.8rem;
         opacity: 0.9;
         line-height: 1.4;
+        color: var(--text-secondary);
     }
 
     /* Empty State */
     .empty-state {
         text-align: center;
         padding: 2rem 1rem;
-        color: var(--gray);
+        color: var(--text-secondary);
     }
 
     .empty-state i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
         opacity: 0.5;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
     .empty-state a {
-        color: var(--primary-light);
+        color: var(--primary-blue);
         text-decoration: none;
         font-weight: 500;
     }
@@ -413,11 +417,20 @@
         }
         
         .stat-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
         }
         
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.5rem;
+        }
+        
+        .stat-value.currency {
+            font-size: 1.3rem;
+        }
+        
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
         }
     }
 
@@ -425,6 +438,18 @@
         .stats-grid {
             grid-template-columns: 1fr;
             gap: 1rem;
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+        }
+        
+        .stat-value.currency {
+            font-size: 1.2rem;
+        }
+        
+        .stat-icon {
+            font-size: 1.4rem;
         }
         
         .quick-actions {
@@ -482,7 +507,7 @@
         }
         
         .summary-value {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 0.25rem;
         }
         
@@ -535,16 +560,24 @@
         }
         
         .stat-card {
-            padding: 1.25rem;
-            margin: 0;
+            padding: 1.25rem 1rem;
         }
         
         .stat-value {
-            font-size: 1.75rem;
+            font-size: 1.3rem;
+        }
+        
+        .stat-value.currency {
+            font-size: 1.1rem;
         }
         
         .stat-icon {
-            font-size: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
         }
         
         .action-btn {
@@ -627,7 +660,7 @@
         }
         
         .action-btn:active {
-            background: rgba(139, 92, 246, 0.15);
+            background: rgba(0, 102, 255, 0.15);
             transform: scale(0.98);
         }
     }
@@ -653,7 +686,7 @@
         </div>
         <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
-            <div class="stat-value">Rp{{ number_format($totalValue, 0, ',', '.') }}</div>
+            <div class="stat-value currency">Rp{{ number_format($totalValue, 0, ',', '.') }}</div>
             <div class="stat-label">Total Inventory Value</div>
         </div>
     </div>
@@ -664,7 +697,7 @@
         <div class="left-column">
             <!-- Quick Actions - Mobile Optimized -->
             <div class="content-card quick-actions-container">
-                <h2 class="section-title"><i class="fas fa-rocket"></i> Quick Actions</h2>
+                <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
                 <div class="quick-actions">
                     <a href="{{ route('products.create') }}" class="action-btn">
                         <i class="fas fa-plus action-icon"></i>
@@ -687,16 +720,16 @@
 
             <!-- Recent Products -->
             <div class="content-card recent-products-container">
-                <h2 class="section-title"><i class="fas fa-clock"></i> Produk Terbaru</h2>
+                <h2 class="section-title"><i class="fas fa-clock"></i> Recent Products</h2>
                 @if($recentProducts->count() > 0)
                 <div class="table-container mobile-optimized">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Nama Produk</th>
+                                <th>Product Name</th>
                                 <th>SKU</th>
-                                <th>Stok</th>
-                                <th>Harga</th>
+                                <th>Stock</th>
+                                <th>Price</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -704,16 +737,16 @@
                             @foreach($recentProducts as $product)
                             <tr>
                                 <td><strong>{{ $product->name }}</strong></td>
-                                <td><code>{{ $product->sku ?? 'T/A' }}</code></td>
+                                <td><code>{{ $product->sku ?? 'N/A' }}</code></td>
                                 <td>{{ $product->stock }} pcs</td>
                                 <td><strong>Rp {{ number_format($product->price, 0, ',', '.') }}</strong></td>
                                 <td>
                                     @if($product->stock == 0)
-                                        <span class="status-badge status-out-of-stock">Stok Habis</span>
+                                        <span class="status-badge status-out-of-stock">Out of Stock</span>
                                     @elseif($product->stock <= 5)
-                                        <span class="status-badge status-low-stock">Stok Menipis</span>
+                                        <span class="status-badge status-low-stock">Low Stock</span>
                                     @else
-                                        <span class="status-badge status-in-stock">Tersedia</span>
+                                        <span class="status-badge status-in-stock">In Stock</span>
                                     @endif
                                 </td>
                             </tr>
@@ -724,7 +757,7 @@
                 @else
                 <div class="empty-state">
                     <i class="fas fa-box-open"></i>
-                    <p>Belum ada produk. <a href="{{ route('products.create') }}">Tambah produk pertama</a></p>
+                    <p>No products yet. <a href="{{ route('products.create') }}">Add your first product</a></p>
                 </div>
                 @endif
             </div>

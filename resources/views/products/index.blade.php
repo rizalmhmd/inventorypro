@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Daftar Produk - InventoryPro')
+@section('title', 'Daftar Produk - Inventory System')
 @section('page-title', 'Manajemen Produk')
 @section('title-icon', 'fa-boxes')
 
@@ -12,9 +12,9 @@
 
     /* Success Alert */
     .alert-success {
-        background: rgba(34, 197, 94, 0.1);
-        border: 1px solid rgba(34, 197, 94, 0.3);
-        color: #86efac;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #10b981;
         padding: 1rem;
         border-radius: 0.75rem;
         margin-bottom: 1.5rem;
@@ -24,22 +24,18 @@
 
     /* Header Card */
     .header-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         border-radius: 1rem;
         padding: 1.5rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
     .header-title {
         font-size: 1.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--light), var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         margin-bottom: 0.5rem;
         display: flex;
         align-items: center;
@@ -47,7 +43,7 @@
     }
 
     .header-subtitle {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.9rem;
         margin-bottom: 1.5rem;
         line-height: 1.4;
@@ -62,11 +58,11 @@
     }
 
     .stat-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        background: var(--card-bg);
         padding: 1.25rem;
         border-radius: 0.75rem;
         backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -80,44 +76,41 @@
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
     }
 
     .stat-icon {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         margin-bottom: 0.75rem;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
     .stat-value {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 0.25rem;
-        background: linear-gradient(135deg, var(--light), var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
         line-height: 1;
+        font-family: 'JetBrains Mono', 'Inter', monospace;
     }
 
     .stat-label {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.75rem;
         font-weight: 500;
     }
 
     /* Main Content Card */
     .content-card {
-        background: rgba(30, 35, 50, 0.7);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         border-radius: 1rem;
         padding: 1.5rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
     /* Search and Filters */
@@ -136,10 +129,10 @@
     .search-input {
         width: 100%;
         padding: 0.875rem 0.875rem 0.875rem 2.75rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 0.9rem;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
@@ -147,8 +140,8 @@
 
     .search-input:focus {
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
     }
 
     .search-icon {
@@ -156,7 +149,7 @@
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.9rem;
     }
 
@@ -175,10 +168,10 @@
 
     .filter-select {
         padding: 0.875rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 0.85rem;
         backdrop-filter: blur(10px);
         flex: 1;
@@ -186,7 +179,7 @@
 
     .filter-select:focus {
         outline: none;
-        border-color: var(--primary);
+        border-color: var(--primary-blue);
     }
 
     /* Mobile Table Container */
@@ -203,7 +196,7 @@
         background: rgba(255, 255, 255, 0.04);
         border-radius: 0.75rem;
         overflow: hidden;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         margin-bottom: 1.5rem;
         overflow-x: auto;
     }
@@ -219,18 +212,18 @@
         background: rgba(255, 255, 255, 0.06);
         padding: 1rem 1.25rem;
         text-align: left;
-        color: var(--gray);
+        color: var(--text-secondary);
         font-weight: 600;
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-bottom: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--card-border);
     }
 
     .table td {
         padding: 1rem 1.25rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     .table tbody tr:last-child td {
@@ -244,7 +237,7 @@
     /* Mobile Card Styles */
     .mobile-product-card {
         background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
         padding: 1.25rem;
         margin-bottom: 1rem;
@@ -265,7 +258,7 @@
     .mobile-product-icon {
         width: 45px;
         height: 45px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         border-radius: 0.75rem;
         display: flex;
         align-items: center;
@@ -285,20 +278,20 @@
 
     .mobile-product-name {
         font-weight: 600;
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 1rem;
         margin-bottom: 0.25rem;
         line-height: 1.3;
     }
 
     .mobile-product-sku {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.8rem;
         margin-bottom: 0.25rem;
     }
 
     .mobile-product-category {
-        color: var(--primary);
+        color: var(--primary-blue);
         font-size: 0.75rem;
         display: flex;
         align-items: center;
@@ -319,13 +312,13 @@
     }
 
     .mobile-detail-label {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.75rem;
         font-weight: 500;
     }
 
     .mobile-detail-value {
-        color: var(--light);
+        color: var(--text-primary);
         font-size: 0.9rem;
         font-weight: 600;
     }
@@ -344,20 +337,20 @@
     }
 
     .status-available {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
-        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     .status-low {
         background: rgba(245, 158, 11, 0.15);
-        color: #fcd34d;
+        color: #f59e0b;
         border-color: rgba(245, 158, 11, 0.3);
     }
 
     .status-out {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
         border-color: rgba(239, 68, 68, 0.3);
     }
 
@@ -384,6 +377,7 @@
         white-space: nowrap;
         flex: 1;
         justify-content: center;
+        backdrop-filter: blur(10px);
     }
 
     .btn-sm {
@@ -393,7 +387,7 @@
 
     .btn-info {
         background: rgba(59, 130, 246, 0.15);
-        color: #93c5fd;
+        color: #3b82f6;
         border: 1px solid rgba(59, 130, 246, 0.3);
     }
 
@@ -404,7 +398,7 @@
 
     .btn-edit {
         background: rgba(59, 130, 246, 0.15);
-        color: #93c5fd;
+        color: #3b82f6;
         border: 1px solid rgba(59, 130, 246, 0.3);
     }
 
@@ -415,7 +409,7 @@
 
     .btn-delete {
         background: rgba(239, 68, 68, 0.15);
-        color: #fca5a5;
+        color: #ef4444;
         border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
@@ -426,14 +420,14 @@
 
     .btn-locked {
         background: rgba(100, 116, 139, 0.15);
-        color: #cbd5e1;
+        color: #64748b;
         border: 1px solid rgba(100, 116, 139, 0.3);
         cursor: not-allowed;
     }
 
     /* Primary Action Button */
     .btn-primary {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
         color: white;
         padding: 0.875rem 1.25rem;
         border-radius: 0.75rem;
@@ -443,28 +437,29 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
         white-space: nowrap;
         font-size: 0.9rem;
+        backdrop-filter: blur(10px);
     }
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
     }
 
     /* Empty State */
     .empty-state {
         text-align: center;
         padding: 3rem 1.5rem;
-        color: var(--gray);
+        color: var(--text-secondary);
     }
 
     .empty-state i {
         font-size: 3rem;
         margin-bottom: 1rem;
         opacity: 0.5;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -474,7 +469,7 @@
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
     }
 
     .empty-state p {
@@ -493,11 +488,11 @@
         gap: 1rem;
         align-items: center;
         padding: 1.5rem 0;
-        border-top: 1px solid var(--glass-border);
+        border-top: 1px solid var(--card-border);
     }
 
     .pagination-info {
-        color: var(--gray);
+        color: var(--text-secondary);
         font-size: 0.85rem;
         text-align: center;
     }
@@ -511,10 +506,10 @@
 
     .pagination-btn {
         padding: 0.6rem 0.875rem;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--card-border);
         border-radius: 0.75rem;
-        color: var(--light);
+        color: var(--text-primary);
         text-decoration: none;
         transition: all 0.3s ease;
         display: inline-flex;
@@ -522,6 +517,7 @@
         gap: 0.4rem;
         font-size: 0.8rem;
         white-space: nowrap;
+        backdrop-filter: blur(10px);
     }
 
     .pagination-btn:hover {
@@ -530,52 +526,50 @@
     }
 
     .pagination-btn.active {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
         color: white;
-        border-color: var(--primary);
+        border-color: var(--primary-blue);
     }
 
     /* RESPONSIVE DESIGN */
     @media (min-width: 768px) {
         .header-card {
             padding: 2rem;
-            border-radius: 1.5rem;
         }
 
         .header-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
         }
 
         .header-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .stats-grid {
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 2rem;
         }
 
         .stat-card {
-            padding: 1.75rem;
+            padding: 1.5rem;
             text-align: left;
         }
 
         .stat-icon {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
         }
 
         .stat-value {
-            font-size: 2.25rem;
+            font-size: 1.5rem;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .content-card {
             padding: 2rem;
-            border-radius: 1.5rem;
         }
 
         .search-container {
@@ -705,12 +699,12 @@
         }
 
         .stat-icon {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             margin-bottom: 0.5rem;
         }
 
         .stat-value {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
         }
 
         .stat-label {
@@ -785,8 +779,8 @@
     <!-- Success Alert -->
     @if(session('success'))
     <div class="alert-success animate-fade-in">
-        <div class="flex items-center">
-            <i class="fas fa-check-circle mr-3"></i>
+        <div style="display: flex; align-items: center;">
+            <i class="fas fa-check-circle" style="margin-right: 0.75rem;"></i>
             <span>{{ session('success') }}</span>
         </div>
     </div>
@@ -794,15 +788,15 @@
 
     <!-- Header Section -->
     <div class="header-card animate-fade-in">
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-4">
-            <div class="flex-1">
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem;">
+            <div style="flex: 1;">
                 <h1 class="header-title">
                     <i class="fas fa-boxes"></i>
                     Daftar Produk
                 </h1>
                 <p class="header-subtitle">
                     Kelola dan pantau inventori produk Anda secara real-time. 
-                    <strong style="color: var(--primary);">Setiap produk baru otomatis memiliki stok!</strong>
+                    <strong style="color: var(--primary-blue);">Setiap produk baru otomatis memiliki stok!</strong>
                 </p>
             </div>
             
@@ -870,7 +864,7 @@
                         <option value="out">Stok Habis</option>
                     </select>
                 </div>
-                <button class="btn" id="resetFilters" style="background: var(--glass); border: 1px solid var(--glass-border);">
+                <button class="btn" id="resetFilters" style="background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border);">
                     <i class="fas fa-refresh"></i>
                     Reset Filter
                 </button>
@@ -895,16 +889,16 @@
                         data-category="{{ $p->category }}"
                         data-search="{{ strtolower($p->name . ' ' . ($p->sku ?? '') . ' ' . ($p->description ?? '')) }}">
                         <td>
-                            <div class="flex items-center gap-3">
-                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-box text-white text-sm"></i>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple)); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-box" style="color: white; font-size: 0.875rem;"></i>
                                 </div>
                                 <div style="min-width: 0; flex: 1;">
-                                    <div style="font-weight: 600; color: var(--light);" class="line-clamp-1">{{ $p->name }}</div>
-                                    <div style="color: var(--gray); font-size: 0.8rem;" class="line-clamp-1">
+                                    <div style="font-weight: 600; color: var(--text-primary);" class="line-clamp-1">{{ $p->name }}</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.8rem;" class="line-clamp-1">
                                         {{ $p->sku ?? 'No SKU' }}
                                     </div>
-                                    <div style="color: var(--primary); font-size: 0.75rem; margin-top: 0.25rem;">
+                                    <div style="color: var(--primary-blue); font-size: 0.75rem; margin-top: 0.25rem;">
                                         <i class="fas fa-tag"></i> {{ $p->category }}
                                     </div>
                                 </div>
@@ -1076,7 +1070,7 @@
         <!-- Table Footer -->
         <div class="table-footer">
             <div class="pagination-info">
-                <span style="font-weight: 600; color: var(--light);" id="visibleCount">{{ $products->count() }}</span> produk ditampilkan
+                <span style="font-weight: 600; color: var(--text-primary);" id="visibleCount">{{ $products->count() }}</span> produk ditampilkan
             </div>
             <div class="pagination-buttons">
                 <a href="#" class="pagination-btn">

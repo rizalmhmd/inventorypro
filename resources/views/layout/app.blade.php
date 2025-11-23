@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'InventoryPro')</title>
+    <title>@yield('title', 'Inventory System')</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -21,29 +22,52 @@
         }
         
         :root {
-            --primary: #8b5cf6;
-            --primary-dark: #7c3aed;
-            --primary-light: #a78bfa;
-            --secondary: #06b6d4;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+            --primary-blue: #0066ff;
+            --primary-dark: #0044cc;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #8b5cf6;
+            --security-green: #10b981;
+            --dark-bg: #0a0f1c;
+            --darker-bg: #050811;
+            --card-bg: rgba(16, 23, 41, 0.6);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
             --success: #10b981;
-            --dark: #1a1f36;
-            --darker: #0f1322;
-            --light: #f8fafc;
-            --gray: #94a3b8;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --warning: #f59e0b;
+            --error: #ef4444;
             --sidebar-width: 260px;
             --sidebar-collapsed: 80px;
         }
         
         body {
-            font-family: 'Instrument Sans', sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #2d3748 100%);
-            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            background: var(--darker-bg);
+            color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects - SAMA PERSIS dengan welcome page */
+        #universeCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            display: block;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
         }
 
         /* Loading Animation */
@@ -53,7 +77,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
             z-index: 9999;
             transform: scaleX(0);
             transform-origin: left;
@@ -68,14 +92,15 @@
         .app-layout {
             display: flex;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Sidebar - TOGGLEABLE */
+        /* Sidebar - Clean Theme */
         .sidebar {
             width: var(--sidebar-width);
-            background: rgba(15, 19, 34, 0.95);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--glass-border);
+            background: rgba(10, 15, 28, 0.9);
+            backdrop-filter: blur(25px);
+            border-right: 1px solid var(--card-border);
             padding: 1.5rem 1rem;
             position: fixed;
             height: 100vh;
@@ -125,12 +150,10 @@
         }
 
         .logo {
+            font-family: 'Inter', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--light) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -138,18 +161,41 @@
         }
 
         .logo-icon {
-            font-size: 1.75rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
         }
 
-        /* TOGGLE BUTTON - POSISI DIKOREKSI */
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 100%;
+            left: -20%;
+            top: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Toggle Button */
         .toggle-sidebar {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--light);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
             padding: 0.6rem;
             border-radius: 0.5rem;
             cursor: pointer;
@@ -159,21 +205,23 @@
             align-items: center;
             justify-content: center;
             position: absolute;
-            right: -12px; /* Digeser lebih ke kanan */
+            right: -12px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 101;
             width: 24px;
             height: 24px;
+            backdrop-filter: blur(10px);
         }
 
         .toggle-sidebar:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 212, 255, 0.15);
+            border-color: rgba(0, 212, 255, 0.3);
             transform: translateY(-50%) scale(1.1);
         }
 
         .sidebar.collapsed .toggle-sidebar {
-            right: -12px; /* Tetap di posisi yang sama saat collapsed */
+            right: -12px;
             transform: translateY(-50%) rotate(180deg);
         }
 
@@ -189,7 +237,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 1rem;
             padding: 0 1rem;
             font-weight: 600;
@@ -201,27 +249,28 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.875rem 1rem;
-            color: var(--gray);
+            color: var(--text-secondary);
             text-decoration: none;
             border-radius: 0.75rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             margin-bottom: 0.25rem;
             border: 1px solid transparent;
             font-weight: 500;
+            backdrop-filter: blur(5px);
         }
 
         .nav-link:hover {
-            background: var(--glass);
-            color: var(--light);
-            border-color: var(--glass-border);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border-color: rgba(0, 212, 255, 0.2);
             transform: translateX(4px);
         }
 
         .nav-link.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--light);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-            border-color: var(--primary-light);
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
         }
 
         .nav-link i {
@@ -238,6 +287,7 @@
             padding: 1.5rem;
             min-height: 100vh;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .main-content.expanded {
@@ -246,12 +296,12 @@
 
         /* Top Bar */
         .top-bar {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
             border-radius: 1rem;
             padding: 1.25rem 1.5rem;
             margin-bottom: 1.5rem;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -276,28 +326,27 @@
 
         .mobile-menu-toggle {
             display: none;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--light);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
             padding: 0.75rem;
             border-radius: 0.75rem;
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.2s ease;
             flex-shrink: 0;
+            backdrop-filter: blur(10px);
         }
 
         .mobile-menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(0, 212, 255, 0.15);
+            border-color: rgba(0, 212, 255, 0.3);
         }
 
         .page-title {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--light), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -307,6 +356,7 @@
         .page-title i {
             font-size: 1.25rem;
             flex-shrink: 0;
+            color: var(--accent-cyan);
         }
 
         .page-title-text {
@@ -327,12 +377,12 @@
 
         .user-name {
             font-weight: 600;
-            color: var(--light);
+            color: var(--text-primary);
             font-size: 0.95rem;
         }
 
         .user-role {
-            color: var(--gray);
+            color: var(--text-secondary);
             font-size: 0.8rem;
         }
 
@@ -340,15 +390,16 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 1rem;
             color: white;
-            border: 2px solid var(--glass-border);
+            border: 2px solid var(--card-border);
             flex-shrink: 0;
+            backdrop-filter: blur(10px);
         }
 
         /* Buttons */
@@ -365,17 +416,18 @@
             gap: 0.5rem;
             font-size: 0.875rem;
             font-family: inherit;
+            backdrop-filter: blur(10px);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
             color: white;
-            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 4px 16px rgba(0, 102, 255, 0.4);
         }
 
         .btn-logout {
@@ -397,6 +449,11 @@
 
         .btn-logout .logout-text {
             display: none;
+        }
+
+        /* Page Content */
+        .page-content {
+            animation: fadeInUp 0.6s ease-out;
         }
 
         /* Responsive */
@@ -447,7 +504,7 @@
             }
 
             .toggle-sidebar {
-                display: none; /* Sembunyikan di mobile */
+                display: none;
             }
         }
 
@@ -536,20 +593,6 @@
             }
         }
 
-        @media (max-width: 360px) {
-            .top-bar {
-                flex-wrap: nowrap;
-            }
-
-            .page-title {
-                font-size: 1rem;
-            }
-
-            .page-title i {
-                display: none;
-            }
-        }
-
         /* Animation */
         @keyframes fadeInUp {
             from {
@@ -585,18 +628,23 @@
     @stack('styles')
 </head>
 <body>
+    <!-- Background Effects - SAMA PERSIS dengan welcome page -->
+    <canvas id="universeCanvas"></canvas>
+    <div id="particles-js"></div>
+
     <!-- Loading Bar -->
     <div class="page-loader" id="pageLoader"></div>
 
     <div class="app-layout">
-        <!-- Sidebar - NOW TOGGLEABLE -->
+        <!-- Sidebar -->
         <aside class="sidebar slide-in-left" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <i class="fas fa-boxes logo-icon"></i>
-                    <span class="logo-text">InventoryPro</span>
+                    <div class="logo-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <span class="logo-text">NebulaCore</span>
                 </div>
-                <!-- TOGGLE BUTTON - NOW POSITIONED TO THE RIGHT -->
                 <div class="toggle-sidebar" id="toggleSidebar" title="Toggle Sidebar">
                     <i class="fas fa-chevron-left"></i>
                 </div>
@@ -683,7 +731,151 @@
         </main>
     </div>
 
+    <!-- Three.js and Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
     <script>
+        // Three.js Universe Background - SAMA PERSIS dengan welcome page
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('universeCanvas'),
+            antialias: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x050811, 1);
+
+        // Starfield - SAMA dengan welcome page: 20,000 bintang
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 20000;
+        const starPositions = new Float32Array(starCount * 3);
+        const starColors = new Float32Array(starCount * 3);
+
+        for (let i = 0; i < starCount; i++) {
+            const i3 = i * 3;
+            // position - SAMA dengan welcome page
+            starPositions[i3] = (Math.random() - 0.5) * 2000;
+            starPositions[i3 + 1] = (Math.random() - 0.5) * 2000;
+            starPositions[i3 + 2] = (Math.random() - 0.5) * 2000;
+            // color - SAMA dengan welcome page
+            if (Math.random() > 0.9) {
+                starColors[i3] = 0.7 + Math.random() * 0.3;
+                starColors[i3 + 1] = 0.8 + Math.random() * 0.2;
+                starColors[i3 + 2] = 1.0;
+            } else {
+                const brightness = 0.5 + Math.random() * 0.5;
+                starColors[i3] = brightness;
+                starColors[i3 + 1] = brightness;
+                starColors[i3 + 2] = brightness;
+            }
+        }
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+        const starMaterial = new THREE.PointsMaterial({
+            size: 1,
+            vertexColors: true,
+            sizeAttenuation: true,
+            transparent: true
+        });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // Nebula - SAMA dengan welcome page
+        const nebulaGeometry = new THREE.SphereGeometry(50, 32, 32);
+        const nebulaMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x0066ff, 
+            transparent: true, 
+            opacity: 0.03 
+        });
+        const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+        scene.add(nebula);
+
+        camera.position.z = 100;
+
+        function animateUniverse() {
+            requestAnimationFrame(animateUniverse);
+            // Kecepatan rotasi SAMA dengan welcome page
+            stars.rotation.x += 0.00005;
+            stars.rotation.y += 0.0001;
+            nebula.rotation.x += 0.0002;
+            nebula.rotation.y += 0.0003;
+            renderer.render(scene, camera);
+        }
+        animateUniverse();
+
+        // Particles.js - SAMA PERSIS dengan welcome page
+        particlesJS('particles-js', {
+            particles: {
+                number: { 
+                    value: 80,  // SAMA: 80 partikel
+                    density: { 
+                        enable: true, 
+                        value_area: 800  // SAMA
+                    } 
+                },
+                color: { 
+                    value: "#00d4ff"  // SAMA
+                },
+                shape: { 
+                    type: "circle"  // SAMA
+                },
+                opacity: { 
+                    value: 0.3,  // SAMA
+                    random: true,  // SAMA
+                    anim: { 
+                        enable: true, 
+                        speed: 1,  // SAMA
+                        opacity_min: 0.1,  // SAMA
+                        sync: false  // SAMA
+                    } 
+                },
+                size: { 
+                    value: 3,  // SAMA
+                    random: true,  // SAMA
+                    anim: { 
+                        enable: true, 
+                        speed: 2,  // SAMA
+                        size_min: 0.1,  // SAMA
+                        sync: false  // SAMA
+                    } 
+                },
+                line_linked: { 
+                    enable: true,  // SAMA
+                    distance: 150,  // SAMA
+                    color: "#0066ff",  // SAMA
+                    opacity: 0.2,  // SAMA
+                    width: 1  // SAMA
+                },
+                move: { 
+                    enable: true,  // SAMA
+                    speed: 1,  // SAMA
+                    direction: "none",  // SAMA
+                    random: true,  // SAMA
+                    straight: false,  // SAMA
+                    out_mode: "out",  // SAMA
+                    bounce: false  // SAMA
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { 
+                    onhover: { 
+                        enable: true, 
+                        mode: "repulse"  // SAMA
+                    }, 
+                    onclick: { 
+                        enable: true, 
+                        mode: "push"  // SAMA
+                    }, 
+                    resize: true 
+                }
+            },
+            retina_detect: true
+        });
+
         // Loading animation
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.getElementById('pageLoader');
@@ -713,7 +905,6 @@
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
             
-            // Save state to localStorage
             const isCollapsed = sidebar.classList.contains('collapsed');
             localStorage.setItem('sidebarCollapsed', isCollapsed);
         });
@@ -738,6 +929,23 @@
             }
         });
 
+        // Resize handler - SAMA dengan welcome page
+        window.addEventListener('resize', function() {
+            // Update Three.js dan Particles
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            if (window.innerWidth > 1024) {
+                sidebar.classList.remove('mobile-open');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            }
+        });
+
         // Active menu highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const currentPath = window.location.pathname;
@@ -745,22 +953,25 @@
             
             navLinks.forEach(link => {
                 const href = link.getAttribute('href');
-                if (href && currentPath.startsWith(href.replace(route('dashboard'), ''))) {
+                if (href && currentPath.startsWith(href)) {
                     link.classList.add('active');
                 }
             });
         });
 
-        // Resize handler
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 1024) {
-                sidebar.classList.remove('mobile-open');
-                mobileToggle.querySelector('i').classList.add('fa-bars');
-                mobileToggle.querySelector('i').classList.remove('fa-times');
-            } else {
-                // On mobile, ensure sidebar is not collapsed
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('expanded');
+        // Fallback untuk icon boxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const boxIcon = document.querySelector('.logo-icon i');
+            // Jika icon boxes tidak terlihat, coba icon lain
+            if (boxIcon && getComputedStyle(boxIcon).display === 'none') {
+                // Coba icon warehouse
+                boxIcon.className = 'fas fa-warehouse';
+                setTimeout(() => {
+                    if (getComputedStyle(boxIcon).display === 'none') {
+                        // Jika warehouse juga tidak muncul, gunakan icon cube
+                        boxIcon.className = 'fas fa-cube';
+                    }
+                }, 100);
             }
         });
     </script>
