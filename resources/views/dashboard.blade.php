@@ -87,6 +87,10 @@
         align-items: start;
     }
 
+    .main-content-area.no-quick-actions {
+        grid-template-columns: 1fr;
+    }
+
     .left-column {
         display: flex;
         flex-direction: column;
@@ -392,11 +396,37 @@
         text-decoration: underline;
     }
 
+    /* User Welcome Message */
+    .user-welcome {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .user-welcome h3 {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+    }
+
+    .user-welcome p {
+        color: var(--text-secondary);
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
     /* RESPONSIVE DESIGN - IMPROVED */
     @media (max-width: 1200px) {
         .main-content-area {
             grid-template-columns: 1fr;
             gap: 1.25rem;
+        }
+        
+        .main-content-area.no-quick-actions {
+            grid-template-columns: 1fr;
         }
         
         .right-column {
@@ -533,6 +563,15 @@
         .alert-content p {
             font-size: 0.75rem;
         }
+        
+        .user-welcome {
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .user-welcome h3 {
+            font-size: 1.1rem;
+        }
     }
 
     @media (max-width: 640px) {
@@ -615,6 +654,19 @@
         .empty-state i {
             font-size: 2rem;
         }
+        
+        .user-welcome {
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .user-welcome h3 {
+            font-size: 1rem;
+        }
+        
+        .user-welcome p {
+            font-size: 0.8rem;
+        }
     }
 
     @media (max-width: 360px) {
@@ -667,6 +719,14 @@
 </style>
 
 <div class="dashboard-content">
+    <!-- User Welcome Message for Non-Admin -->
+    @if(auth()->user()->role !== 'admin')
+    <div class="user-welcome">
+        <h3>Selamat Datang, {{ auth()->user()->name }}! 👋</h3>
+        <p>Anda login sebagai <strong>{{ ucfirst(auth()->user()->role) }}</strong>. Berikut adalah ringkasan inventory terkini.</p>
+    </div>
+    @endif
+
     <!-- Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card">
@@ -674,11 +734,13 @@
             <div class="stat-value">{{ $totalProducts }}</div>
             <div class="stat-label">Total Products</div>
         </div>
+        @if(auth()->user()->role === 'admin')
         <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-users"></i></div>
             <div class="stat-value">{{ $totalUsers }}</div>
             <div class="stat-label">Total Users</div>
         </div>
+        @endif
         <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
             <div class="stat-value">{{ $lowStockItems }}</div>
@@ -692,10 +754,11 @@
     </div>
 
     <!-- Main Content Area - IMPROVED RESPONSIVE LAYOUT -->
-    <div class="main-content-area">
+    <div class="main-content-area {{ auth()->user()->role !== 'admin' ? 'no-quick-actions' : '' }}">
         <!-- Left Column -->
         <div class="left-column">
-            <!-- Quick Actions - Mobile Optimized -->
+            <!-- Quick Actions - Hanya untuk Admin -->
+            @if(auth()->user()->role === 'admin')
             <div class="content-card quick-actions-container">
                 <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
                 <div class="quick-actions">
@@ -717,6 +780,7 @@
                     </a>
                 </div>
             </div>
+            @endif
 
             <!-- Recent Products -->
             <div class="content-card recent-products-container">
@@ -757,7 +821,13 @@
                 @else
                 <div class="empty-state">
                     <i class="fas fa-box-open"></i>
-                    <p>No products yet. <a href="{{ route('products.create') }}">Add your first product</a></p>
+                    <p>No products yet. 
+                       @if(auth()->user()->role === 'admin')
+                       <a href="{{ route('products.create') }}">Add your first product</a>
+                       @else
+                       Contact admin to add products
+                       @endif
+                    </p>
                 </div>
                 @endif
             </div>
@@ -789,7 +859,13 @@
                         <i class="fas fa-exclamation-circle alert-icon"></i> 
                         <div class="alert-content">
                             <strong>{{ $outOfStockItems }} products are out of stock</strong>
-                            <p>Restock these items immediately</p>
+                            <p>
+                                @if(auth()->user()->role === 'admin')
+                                Restock these items immediately
+                                @else
+                                Please notify admin to restock
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -801,7 +877,13 @@
                         <i class="fas fa-exclamation-triangle alert-icon"></i> 
                         <div class="alert-content">
                             <strong>{{ $lowStockItems }} products are running low</strong>
-                            <p>Consider restocking soon</p>
+                            <p>
+                                @if(auth()->user()->role === 'admin')
+                                Consider restocking soon
+                                @else
+                                Stock levels are getting low
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -819,7 +901,42 @@
                 </div>
                 @endif
             </div>
+
+            <!-- Additional Info for Non-Admin Users -->
+            @if(auth()->user()->role !== 'admin')
+            <div class="content-card">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Information</h2>
+                <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">
+                    <p>Anda dapat melihat laporan stok dan riwayat transaksi. Untuk aksi manajemen stok, silakan hubungi administrator.</p>
+                    
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.05); border-radius: 0.5rem;">
+                        <strong style="color: var(--text-primary);">Akses Tersedia:</strong>
+                        <ul style="margin: 0.5rem 0 0 1rem; padding: 0;">
+                            <li>Lihat produk</li>
+                            <li>Lihat laporan stok</li>
+                            <li>Lihat riwayat transaksi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add animation to table rows
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach((row, index) => {
+            row.style.animationDelay = `${index * 0.05}s`;
+        });
+
+        // Smooth animations for cards
+        const cards = document.querySelectorAll('.stat-card, .content-card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    });
+</script>
 @endsection
