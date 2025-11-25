@@ -62,3 +62,22 @@
    ```bash
    git clone https://github.com/your-username/inventorypro.git
    cd inventorypro
+
+  ### Menggunakan MongoDB
+
+  Jika Anda ingin menjalankan aplikasi dengan MongoDB sebagai database utama, lakukan langkah berikut:
+
+  1. Install package MongoDB Eloquent (Jenssegers):
+  ```bash
+  composer require jenssegers/mongodb
+  ```
+
+  2. Siapkan environment variables di `.env` (atau di Render dashboard) - contoh:
+  ```env
+  DB_CONNECTION=mongodb
+  MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.abcde.mongodb.net/inventorypro
+  ```
+
+  3. Update model yang akan tersimpan di MongoDB (sudah disiapkan di repo): `User`, `Product`, dan `StockTransaction`.
+
+  4. Jika Anda memiliki data di MySQL dan ingin memigrasikannya, buat skrip migrasi/transform untuk memindahkan data ke format document MongoDB.

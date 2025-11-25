@@ -24,28 +24,25 @@ class StockController extends Controller
     public function storeIn(Request $request)
     {
         $data = $request->validate([
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required|exists:products,_id',
             'quantity' => 'required|integer|min:1',
             'reference' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
 
-        DB::transaction(function() use ($data) {
-            $product = Product::findOrFail($data['product_id']);
-            
-            // Update stock (bukan quantity)
-            $product->stock += $data['quantity'];
-            $product->save();
+        // Use atomic increment to avoid race conditions with MongoDB
+        $product = Product::findOrFail($data['product_id']);
+        Product::where($product->getKeyName(), $product->getKey())->increment('stock', $data['quantity']);
 
-            StockTransaction::create([
-                'product_id' => $product->id,
+        StockTransaction::create([
+            'product_id' => $product->getKey(),
                 'user_id' => auth()->id(),
                 'type' => 'in',
                 'quantity' => $data['quantity'],
                 'reference' => $data['reference'] ?? null,
                 'notes' => $data['notes'] ?? null,
             ]);
-        });
+        
 
         return back()->with('success','Stok masuk berhasil dicatat.');
     }
@@ -59,35 +56,33 @@ class StockController extends Controller
     public function storeOut(Request $request)
     {
         $data = $request->validate([
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required|exists:products,_id',
             'quantity' => 'required|integer|min:1',
             'reference' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
 
-        DB::transaction(function() use ($data) {
-            $product = Product::lockForUpdate()->findOrFail($data['product_id']);
-            
-            // Validasi stok (bukan quantity)
-            if ($product->stock < $data['quantity']) {
-                throw ValidationException::withMessages([
-                    'quantity' => 'Stok tidak cukup. Stok tersedia: ' . $product->stock . ' pcs'
-                ]);
-            }
-            
-            // Update stock (bukan quantity)
-            $product->stock -= $data['quantity'];
-            $product->save();
+        // Use atomic decrement with conditional to avoid race conditions
+        $product = Product::findOrFail($data['product_id']);
+        $decremented = Product::where($product->getKeyName(), $product->getKey())
+            ->where('stock', '>=', $data['quantity'])
+            ->decrement('stock', $data['quantity']);
 
-            StockTransaction::create([
-                'product_id' => $product->id,
+        if (!$decremented) {
+            throw ValidationException::withMessages([
+                'quantity' => 'Stok tidak cukup. Stok tersedia: ' . $product->stock . ' pcs'
+            ]);
+        }
+
+        StockTransaction::create([
+            'product_id' => $product->getKey(),
                 'user_id' => auth()->id(),
                 'type' => 'out',
                 'quantity' => $data['quantity'],
                 'reference' => $data['reference'] ?? null,
                 'notes' => $data['notes'] ?? null,
             ]);
-        });
+        
 
         return back()->with('success','Stok keluar berhasil dicatat.');
     }

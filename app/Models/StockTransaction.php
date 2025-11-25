@@ -3,11 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class StockTransaction extends Model
+class StockTransaction extends Eloquent
 {
     use HasFactory;
+
+    /**
+     * Use the mongodb connection for this model (optional, but explicit)
+     */
+    protected $connection = 'mongodb';
+    protected $primaryKey = '_id';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'product_id',

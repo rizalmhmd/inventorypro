@@ -18,8 +18,11 @@ RUN composer dump-autoload --optimize
 
 # 3) Final image (php-fpm + nginx)
 FROM php:8.2-fpm-alpine
-RUN apk add --no-cache nginx bash shadow sudo libpng-dev libzip-dev oniguruma-dev git curl build-base autoconf zip zlib-dev
+RUN apk add --no-cache nginx bash shadow sudo libpng-dev libzip-dev oniguruma-dev git curl build-base autoconf zip zlib-dev openssl-dev
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+
+# Install MongoDB PHP extension
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 WORKDIR /var/www/html
 

@@ -1,18 +1,28 @@
 services:
   - type: web
     name: nebulacore
-    env: php
+    env: docker
     plan: free
     region: singapore
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-      chmod -R 755 storage bootstrap/cache
-    startCommand: php artisan serve --host=0.0.0.0 --port=8000
+    docker:
+      dockerfilePath: Dockerfile
+    startCommand: ./docker/start.sh
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
         value: false
+      - key: DB_CONNECTION
+        value: mongodb
+      - key: MONGODB_URI
+        value: <set-your-mongodb-connection-string>
+      - key: MONGODB_HOST
+        value: <your-mongodb-host>
+      - key: MONGODB_PORT
+        value: "27017"
+      - key: MONGODB_DATABASE
+        value: inventorypro
+      - key: MONGODB_USERNAME
+        value: <your-mongodb-username>
+      - key: MONGODB_PASSWORD
+        value: <your-mongodb-password>
