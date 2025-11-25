@@ -1,43 +1,18 @@
 services:
   - type: web
-    name: inventorypro-web
-    env: docker
+    name: nebulacore
+    env: php
     plan: free
-    docker:
-      dockerfilePath: Dockerfile
-    startCommand: ./docker/start.sh
+    region: singapore
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+      chmod -R 755 storage bootstrap/cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=8000
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: "false"
-      - key: APP_URL
-        value: https://your-app.onrender.com
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        # When you create the managed DB below, Render will provide a host in the dashboard.
-        # A common internal host pattern is `<db-name>.internal` — replace if different.
-        value: inventorypro-db.internal
-      - key: DB_PORT
-        value: "3306"
-      - key: DB_DATABASE
-        value: inventorypro
-      - key: DB_USERNAME
-        value: render
-      - key: DB_PASSWORD
-        value: <set-via-render-dashboard>
-      - key: MIGRATE_ON_START
-        value: "false"
-
-databases:
-  - name: inventorypro-db
-    plan: starter
-    engine: mysql
-    region: oregon
-    version: "8"
-    private: true
-    # Notes:
-    # - Render will provision the DB and show credentials in the dashboard.
-    # - After the database is created, copy host/username/password into the
-    #   web service environment variables above (or use Render's secrets/links).
+        value: false
