@@ -100,10 +100,10 @@ return [
 
         /*  =====  MONGODB (BARU)  =====  */
         'mongodb' => [
-            'driver'   => 'mongodb',
-            'dsn'      => env('DB_DSN'),               // isi MONGODB_URI
-            'database' => env('DB_DATABASE', 'inventorry2'),
-        ],
+    'driver' => 'mongodb',
+    'dsn' => env('MONGODB_URI', ''),
+    'database' => env('DB_DATABASE', 'inventory2'),
+],
 
     ],
 
