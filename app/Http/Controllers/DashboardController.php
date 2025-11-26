@@ -21,10 +21,8 @@ class DashboardController extends Controller
         $lowStockItems = Product::where('stock', '<=', 5)->where('stock', '>', 0)->count();
         $outOfStockItems = Product::where('stock', '<=', 0)->count();
         
-        // Calculate total inventory value (do in PHP so it works with MongoDB)
-        $totalValue = Product::all()->sum(function ($product) {
-            return ($product->price ?? 0) * ($product->stock ?? 0);
-        });
+        // Calculate total inventory value
+        $totalValue = Product::sum(DB::raw('price * stock'));
         
         // Get recent products
         $recentProducts = Product::latest()->take(5)->get();
