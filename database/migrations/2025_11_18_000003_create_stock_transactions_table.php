@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
-        Schema::create('stock_transactions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->enum('type', ['in', 'out']);
-            $table->integer('quantity');
-            $table->string('reference')->nullable();
-            $table->text('notes')->nullable();
-            $table->timestamps();
-        });
+   public function up()
+{
+    Schema::create('stock_transactions', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+        // Pastikan tipe data sama dengan products.id
+        $table->integer('quantity');
+        $table->string('type'); // in/out
+        $table->text('notes')->nullable();
+        $table->timestamps();
+        
+        // Pastikan menggunakan InnoDB
+        $table->engine = 'InnoDB';
+    });
     }
 
     public function down(): void
