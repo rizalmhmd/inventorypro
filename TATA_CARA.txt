@@ -1,0 +1,30 @@
+TATA CARA CLONE GITHUB
+
+1. klik kolom pencarian di vscode lalu ketik ">git clone" lalu enter dan masukan link github atau pilih dari remote
+2. pilih folder tujuan penyimpanan project
+3. tunggu proses clone selesai
+4. buka terminal di vscode lalu ketik "composer install, npm install, php artisan storage:link, cp .env.example .env, php artisan key:generate"
+5. atur konfigurasi database di file .env sesuai database masing-masing
+6. buat database baru sesuai nama database di file .env
+7. jalankan migrasi dan seeder dengan perintah "php artisan migrate:fresh --seed"
+8. jalankan project dengan perintah "php artisan serve" lalu buka di browser dengan alamat "http://localhost:8000"
+
+
+
+TATA CARA UPDATE PROJECT GITHUB
+
+1. buka terminal di vscode lalu ketik "git pull origin main" atau "git pull origin master" sesuai branch utama
+2. tunggu proses pull selesai
+3. jalankan perintah "composer install" dan "npm install" untuk mengupdate dependencies
+4. jalankan migrasi dan seeder dengan perintah "php artisan migrate:fresh --seed" jika ada perubahan pada database
+5. jalankan project dengan perintah "php artisan serve" lalu buka di browser dengan alamat "http://localhost:8000"
+
+
+TATA CARA UPLOAD PROJECT GITHUB
+
+1. buka terminal di vscode lalu ketik "git add ."
+2. lalu ketik "git commit -m "pesan commit""
+3. lalu ketik "git push origin main" atau "git push origin master" sesuai branch utama
+4. tunggu proses push selesai
+5. cek di github apakah perubahan sudah terupload
+# Catatan: Pastikan untuk selalu melakukan pull sebelum melakukan push untuk menghindari konflik.
